@@ -18,7 +18,7 @@ const pageTitle = "博客";
     <BaseLayout>
       <h1>我的 Astro 学习博客</h1>
       <p>在这里，我将分享我的学习 Astro 之旅。</p>
-      <ul>
+      <ul class="flex flex-col gap-1">
         {
           allPosts.map((post) => (
             <BlogPost url={post.url} title={post.frontmatter.title} />
