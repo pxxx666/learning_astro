@@ -1,5 +1,9 @@
 ---
-import "../styles/index.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BlogPost from "../components/BlogPost.astro";
+
+const allPosts = await Astro.glob("./posts/*.md");
+const pageTitle = "博客";
 ---
 
 <html lang="en">
@@ -8,13 +12,22 @@ import "../styles/index.css";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
+    <title>{pageTitle}</title>
   </head>
   <body>
-    <button onclick="location.href='/'">首页</button>
-    <button onclick="location.href='/about'">关于</button>
-    <button onclick="location.href='/blog'">博客</button>
-    <h1>我的 Astro 学习博客</h1>
-    <p>在这里，我将分享我的学习 Astro 之旅。</p>
+    <BaseLayout>
+      <h1>我的 Astro 学习博客</h1>
+      <p>在这里，我将分享我的学习 Astro 之旅。</p>
+      <ul>
+        {
+          allPosts.map((post) => (
+            <BlogPost url={post.url} title={post.frontmatter.title} />
+          ))
+        }
+      </ul>
+    </BaseLayout>
   </body>
+  <script>
+    import "../scripts/menu.js";
+  </script>
 </html>
